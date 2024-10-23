@@ -1,0 +1,1 @@
+sample_id,file_name,stranded,sgRNA_sequence,amplicon_sequence,adapter_5,adapter_3,mixed,job,quantification_center,window_size,exclude_bp_from_left,exclude_bp_from_right,alignment_cutoff,control
