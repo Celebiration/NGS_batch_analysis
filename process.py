@@ -187,8 +187,8 @@ if len(paired) > 0:
 			print('\n### <font color=#D89F12>⚠️警告：将%s合并后reads数从%d变为了%d，尝试使用单端分析...</font>\n' %(R1+'、'+R2,before/4,after/4))
 			
 			#若双端无法合并，则尝试使用单端reads
-			amplicon=list(paired['amplicon_sequence'])[i]
-			sgRNA=list(paired['sgRNA_sequence'])[i]
+			amplicon=list(paired['amplicon_sequence'])[i].upper()
+			sgRNA=list(paired['sgRNA_sequence'])[i].upper()
 			#统计R1、R2的cover序列
 			#R1
 			end_length = 10
