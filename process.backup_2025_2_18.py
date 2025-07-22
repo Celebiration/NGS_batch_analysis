@@ -60,7 +60,7 @@ if len(mixed)>0:
 				r.write('>'+list(data['sample_id'])[ii]+'_r'+'\n'+list(data['adapter_3'])[ii][:15]+'\n')
 			f.close()
 			r.close()
-			R1=files.removesuffix('.gz')
+			R1=files.strip('.gz')
 			print('\n## '+'开始对文件：%s进行拆分：%s' %(R1, str(list(data['sample_id'])))+'\n')
 			val=os.system('cutadapt -j 8 --revcomp -g ^file:%s -a ^file:%s --pair-adapters -e 0.1 -o "%s{name}.fq" --action none --untrimmed-output %s %s' %(tmpbase+'demult_'+str(i+1)+'_F.fa',tmpbase+'demult_'+str(i+1)+'_R.fa',tmpbase+'fq/', tmpbase+'fq/'+R1+'.untrimmed.fq',tmpbase+'fq/'+R1))
 			if val!=0:
@@ -95,8 +95,8 @@ if len(mixed)>0:
 			f.close()
 			r.close()
 			R1,R2=files.split(';')
-			R1=R1.removesuffix('.gz')
-			R2=R2.removesuffix('.gz')
+			R1=R1.strip('.gz')
+			R2=R2.strip('.gz')
 			print('\n## '+'开始对文件：%s进行拆分：%s' %(files, str(list(data['sample_id'])))+'\n')
 			val=os.system('cutadapt -j 8 -g ^file:%s -G ^file:%s --pair-adapters -e 0.1 -o "%s{name}.1.fq" -p "%s{name}.2.fq" --action none --untrimmed-output %s --untrimmed-paired-output %s %s %s' %(tmpbase+'demult_'+str(i+1)+'_F.fa',tmpbase+'demult_'+str(i+1)+'_R.fa',tmpbase+'fq/',tmpbase+'fq/',tmpbase+'fq/'+R1+'_'+R2+'.untrimmed_1.fq',tmpbase+'fq/'+R1+'_'+R2+'.untrimmed_2.fq',tmpbase+'fq/'+R1,tmpbase+'fq/'+R2))
 			if val!=0:
@@ -163,8 +163,8 @@ if len(paired) > 0:
 		ind = 1
 		sample=list(paired['sample_id'])[i]
 		R1,R2=list(paired['file_name'])[i].split(';')
-		R1=R1.removesuffix('.gz')
-		R2=R2.removesuffix('.gz')
+		R1=R1.strip('.gz')
+		R2=R2.strip('.gz')
 		
 		print('\n## '+'开始对%s进行合并...' %(R1+';'+R2)+'\n')
 		#如果已经合并，则跳过
@@ -269,7 +269,7 @@ if len(base)>0:
 	for i in range(len(base)):
 		sample=list(base['sample_id'])[i]
 		file=list(base['file_name'])[i] 
-		file=file.removesuffix('.gz')
+		file=file.strip('.gz')
 		stranded=list(base['stranded'])[i]
 		sgRNA=list(base['sgRNA_sequence'])[i]
 		amplicon=list(base['amplicon_sequence'])[i]
@@ -440,8 +440,8 @@ if pooled_ind:
 			raise ValueError("单端测序尚未实现！")
 		data=pooled[pooled['file_name']==files]
 		R1,R2=files.split(';')
-		R1=R1.removesuffix('.gz')
-		R2=R2.removesuffix('.gz')
+		R1=R1.strip('.gz')
+		R2=R2.strip('.gz')
 		f=open(tmpbase+'fq/'+R1+'.amplicon.txt','w')
 		
 		print('\n## '+'开始处理pooled样本（%s）：%s...' %(files, str(list(data['sample_id'])))+'\n')
@@ -497,8 +497,8 @@ if pooled_ind:
 			raise ValueError("单端测序尚未实现！")
 		data=pooled[pooled['file_name']==files]
 		R1,R2=files.split(';')
-		R1=R1.removesuffix('.gz')
-		R2=R2.removesuffix('.gz')
+		R1=R1.strip('.gz')
+		R2=R2.strip('.gz')
 		amplicon_set=set()
 		for k in range(len(data)):
 			sample=list(data['sample_id'])[k]
@@ -603,7 +603,7 @@ if len(nnn)>0:
 	for i in range(len(nnn)):
 		sample=list(nnn['sample_id'])[i]
 		file=list(nnn['file_name'])[i]
-		file=file.removesuffix('.gz')
+		file=file.strip('.gz')
 		stranded=list(nnn['stranded'])[i]
 		amplicon=list(nnn['amplicon_sequence'])[i]
 		adapter_5=list(nnn['adapter_5'])[i]
