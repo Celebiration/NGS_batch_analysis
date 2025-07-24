@@ -134,17 +134,15 @@ def find_duplicate_indices(lst):
     duplicate_indices = duplicates.groupby(duplicates).apply(lambda x: list(x.index)).to_dict()
     return duplicate_indices
 
-unmixed_base = unmixed[unmixed['job']!='nnn']
-unmixed_nnn = unmixed[unmixed['job']=='nnn']
-tmp = find_duplicate_indices(unmixed_base["file_name"])
+tmp = find_duplicate_indices(unmixed["file_name"])
 pooled_ind = 0
 if len(tmp) > 0:# 有pooled样本
 	pooled_ind = 1
 	pooled_index = [item for sublist in list(tmp.values()) for item in sublist]
-	pooled = unmixed_base.iloc[pooled_index,]
-	unmixed = unmixed_base.iloc[[i for i in list(range(unmixed_base.shape[0])) if i not in pooled_index],]
+	pooled = unmixed.iloc[pooled_index,]
+	unmixed = unmixed.iloc[[i for i in list(range(unmixed.shape[0])) if i not in pooled_index],]
 	mixed = mapping[mapping['mixed']=='yes']
-	mapping = pd.concat([unmixed,mixed,unmixed_nnn])
+	mapping = pd.concat([unmixed,mixed])
 
 #对双端测序的进行拼接
 def reverse_complement(seq):
